@@ -21,11 +21,11 @@
 # ============================
 # Your App Classes
 # ============================
--keep class com.ezehmark.byta.MainApplication { *; }
--keep class com.ezehmark.byta.MainActivity { *; }
+-keep class com.softclicks.app.MainApplication { *; }
+-keep class com.softclicks.app.MainActivity { *; }
 
 # Keep only classes in your app package
--keep class com.ezehmark.byta.** { *; }
+-keep class com.softclicks.app.** { *; }
 
 # ============================
 # Remove unused AndroidX / support classes

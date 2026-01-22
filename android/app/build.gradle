@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace "com.ezehmark.bytpay"
+    namespace "com.softclicks.app"
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.ezehmark.bytpay"
+        applicationId "com.softclicks.app"
         minSdk 21
         targetSdk 34
         versionCode 1

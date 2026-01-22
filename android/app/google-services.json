@@ -1,44 +1,26 @@
 {
   "project_info": {
-    "project_number": "552162671981",
-    "project_id": "bytpay-134df",
-    "storage_bucket": "bytpay-134df.firebasestorage.app"
+    "project_number": "544240947967",
+    "project_id": "softclicks",
+    "storage_bucket": "softclicks.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:552162671981:android:dca237779e99d290cc6e64",
+        "mobilesdk_app_id": "1:544240947967:android:d89b8f814e3041c3b4f2ca",
         "android_client_info": {
-          "package_name": "com.ezehmark.bytpay"
+          "package_name": "com.softclicks.app"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "552162671981-ou1hrnn0gip6ok4onhcp1doil29nulie.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.ezehmark.bytpay",
-            "certificate_hash": "6822685e2c95315e4f69ff9fd51662af9ca69bf1"
-          }
-        },
-        {
-          "client_id": "552162671981-ll9gdfdq67oe2e6olllc4gdl6kp6t1hq.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA6hXsFc0H8t_OhlGRSpxCZjQUruKUJE2Q"
+          "current_key": "AIzaSyD57rUNr7JXtrrWFl58iJffyxcrUWonErk"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "552162671981-ll9gdfdq67oe2e6olllc4gdl6kp6t1hq.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

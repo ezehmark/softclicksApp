@@ -1,4 +1,4 @@
-package com.ezehmark.bytpay;
+package com.softclicks.app;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
             if (isConnected()) {
                 webView.setVisibility(View.VISIBLE);
-                webView.loadUrl("https://bytpay.live");
+                webView.loadUrl("https://v0-softclicks.vercel.app");
             } else {
                 // overlay no wifi
                 noWifiImage.setVisibility(View.VISIBLE);

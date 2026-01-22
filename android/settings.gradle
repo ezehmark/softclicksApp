@@ -1,2 +1,2 @@
-rootProject.name = "BytPay"
+rootProject.name = "SoftClicks"
 include(":app")
