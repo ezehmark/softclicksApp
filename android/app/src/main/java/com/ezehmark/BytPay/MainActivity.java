@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 // overlay no wifi
                 noWifiImage.setVisibility(View.VISIBLE);
-                webView.setVisibility(View.VISIBLE); // keep webview ready underneath
+                webView.setVisibility(View.VISIBLE); // keep webview ready underneath main
             }
 
             splashScreen.animate()
