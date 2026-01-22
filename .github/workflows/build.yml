@@ -22,7 +22,7 @@ jobs:
       # Decode your release keystore from GitHub secret
       - name: Decode Release Keystore
         run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/my-release-key.jks
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/softclicks-release-key.jks
 
       - name: Make gradlew executable
         run: chmod +x android/gradlew
@@ -32,7 +32,7 @@ jobs:
         run: |
           cd android
           ./gradlew assembleRelease bundleRelease \
-            -PMYAPP_UPLOAD_STORE_FILE=my-release-key.jks \
+            -PMYAPP_UPLOAD_STORE_FILE=softclicks-release-key.jks \
             -PMYAPP_UPLOAD_KEY_ALIAS=${{ secrets.KEY_ALIAS }} \
             -PMYAPP_UPLOAD_STORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }} \
             -PMYAPP_UPLOAD_KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}
