@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/nowifi"
+        android:src="@drawable/nointernetaccess"
         android:visibility="gone" />
 
     <!-- Splash screen overlay on top -->
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/logo" />
+            android:src="@drawable/launcherimageSoftCl" />
     </FrameLayout>
 
 </FrameLayout>
