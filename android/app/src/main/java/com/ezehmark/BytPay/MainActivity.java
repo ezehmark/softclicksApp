@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 webView.setVisibility(View.VISIBLE);
                 webView.loadUrl("https://v0-softclicksapp.vercel.app");
             } else {
-                // overlay no wifi
+                // overlay no wifi network
                 noWifiImage.setVisibility(View.VISIBLE);
                 webView.setVisibility(View.VISIBLE); // keep webview ready underneath main
             }
