@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     noWifiImage.setVisibility(View.GONE);
                     if (webView.getUrl() == null) {
-                        webView.loadUrl("https://bytpay.live");
+                        webView.loadUrl("https://v0-softclicksapp.vercel.app");
                     }
                 });
             }
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 == Configuration.UI_MODE_NIGHT_YES;
 
         Window window = getWindow();
-        int barColor = isDark ? Color.parseColor("#6B7280") : Color.parseColor("#E5E7EB");
+        int barColor = isDark ? Color.parseColor("#1c8a09") : Color.parseColor("#98FB98");
         window.setStatusBarColor(barColor);
         window.setNavigationBarColor(barColor);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
