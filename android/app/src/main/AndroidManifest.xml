@@ -13,7 +13,7 @@
         
         <activity android:name=".MainActivity"
             android:exported="true"
-            android:configChanges="orientation|screenSize"
+            android:configChanges="orientation|screenSize|uiMode"
             android:screenOrientation="portrait">
             
             <intent-filter>
