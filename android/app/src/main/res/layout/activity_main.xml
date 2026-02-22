@@ -2,12 +2,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- WebView at bottom -->
-    <WebView
-        android:id="@+id/webview"
+    <!-- WebView wrapped in SwipeRefreshLayout to enable pull-to-refresh -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:visibility="gone">
+
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <!-- No Wi-Fi image overlay -->
     <ImageView

@@ -23,6 +23,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +37,7 @@ import com.google.android.gms.common.api.ApiException;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "WebViewConsole";
     private WebView webView;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private View splashScreen;
     private ImageView noWifiImage;
     private static final int SPLASH_DURATION = 5000; // 5 seconds
@@ -58,11 +60,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         splashScreen = findViewById(R.id.splash_screen);
+        swipeRefreshLayout = findViewById(R.id.swipe_layout);
         webView = findViewById(R.id.webview);
         noWifiImage = findViewById(R.id.no_wifi_image);
 
         // start hidden
         noWifiImage.setVisibility(View.GONE);
+        swipeRefreshLayout.setVisibility(View.GONE);
+
+        // configure pull-to-refresh
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            if (webView != null) {
+                webView.reload();
+            } else {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+        // optional: match the app color or theme
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_dark,
+                android.R.color.holo_blue_light,
+                android.R.color.holo_green_light);
 
         applySystemThemeUI();
         setupGoogleOneTap();
@@ -87,6 +104,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 setThemeForWebView();
+                if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
             }
         });
 
@@ -131,11 +151,13 @@ public class MainActivity extends AppCompatActivity {
         // Splash delay & internet check
         new Handler().postDelayed(() -> {
             if (isConnected()) {
+                swipeRefreshLayout.setVisibility(View.VISIBLE);
                 webView.setVisibility(View.VISIBLE);
                 webView.loadUrl("https://v0-softclicksapp.vercel.app");
             } else {
                 // overlay no wifi network
                 noWifiImage.setVisibility(View.VISIBLE);
+                swipeRefreshLayout.setVisibility(View.VISIBLE);
                 webView.setVisibility(View.VISIBLE); // keep webview ready underneath main
             }
 
@@ -177,6 +199,9 @@ public class MainActivity extends AppCompatActivity {
             public void onAvailable(Network network) {
                 runOnUiThread(() -> {
                     noWifiImage.setVisibility(View.GONE);
+                    if (swipeRefreshLayout != null) {
+                        swipeRefreshLayout.setVisibility(View.VISIBLE);
+                    }
                     if (webView.getUrl() == null) {
                         webView.loadUrl("https://v0-softclicksapp.vercel.app");
                     }
