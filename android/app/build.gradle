@@ -42,7 +42,8 @@ dependencies {
     // AndroidX
     implementation "androidx.appcompat:appcompat:1.6.1"
     implementation "androidx.webkit:webkit:1.8.0"
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0"
+    // use a version compatible with compileSdk 34
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
     // Google Identity Services (One Tap) - modern is curved bottom popup
     implementation "com.google.android.gms:play-services-auth:21.2.0"
