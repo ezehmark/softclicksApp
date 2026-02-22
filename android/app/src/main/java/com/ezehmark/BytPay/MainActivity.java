@@ -17,6 +17,8 @@ import android.view.WindowInsetsController;
 import android.webkit.ConsoleMessage;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
+import android.net.Uri;
+import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -43,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
     private BeginSignInRequest signInRequest;
     private static final int REQ_ONE_TAP = 100;
 
+    // File chooser callback
+    private ValueCallback<Uri[]> filePathCallback;
+    private static final int INPUT_FILE_REQUEST_CODE = 1;
+
     // Network monitoring
     private ConnectivityManager.NetworkCallback networkCallback;
 
@@ -65,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setAllowContentAccess(true);
         String modernUA = "Mozilla/5.0 (Linux; Android 13; Pixel 7) " +
                 "AppleWebKit/537.36 (KHTML, like Gecko) " +
                 "Chrome/120.0.0.0 Mobile Safari/537.36";
@@ -83,6 +91,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
         webView.setWebChromeClient(new WebChromeClient() {
+            // Support for <input type="file"/> elements
+            @Override
+            public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback,
+                                             FileChooserParams fileChooserParams) {
+                // store callback for onActivityResult
+                MainActivity.this.filePathCallback = filePathCallback;
+                Intent intent = fileChooserParams.createIntent();
+                try {
+                    startActivityForResult(intent, INPUT_FILE_REQUEST_CODE);
+                } catch (Exception e) {
+                    MainActivity.this.filePathCallback = null;
+                    Log.e(TAG, "Cannot open file chooser", e);
+                    return false;
+                }
+                return true;
+            }
+
             @Override
             public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
                 if (consoleMessage != null) {
@@ -268,6 +293,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // handle Google One Tap
         if (requestCode == REQ_ONE_TAP && data != null) {
             try {
                 SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(data);
@@ -277,6 +303,29 @@ public class MainActivity extends AppCompatActivity {
                 }
             } catch (ApiException e) {
                 e.printStackTrace();
+            }
+        }
+
+        // handle file chooser results
+        if (requestCode == INPUT_FILE_REQUEST_CODE) {
+            if (filePathCallback != null) {
+                Uri[] results = null;
+                if (resultCode == RESULT_OK) {
+                    if (data != null) {
+                        String dataString = data.getDataString();
+                        if (dataString != null) {
+                            results = new Uri[]{Uri.parse(dataString)};
+                        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && data.getClipData() != null) {
+                            int count = data.getClipData().getItemCount();
+                            results = new Uri[count];
+                            for (int i = 0; i < count; i++) {
+                                results[i] = data.getClipData().getItemAt(i).getUri();
+                            }
+                        }
+                    }
+                }
+                filePathCallback.onReceiveValue(results);
+                filePathCallback = null;
             }
         }
     }
