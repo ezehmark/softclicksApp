@@ -76,10 +76,11 @@ public class MainActivity extends AppCompatActivity {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-        // optional: match the app color or theme
-        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_dark,
-                android.R.color.holo_blue_light,
-                android.R.color.holo_green_light);
+        // customize refresh spinner colours using app theme resources
+        swipeRefreshLayout.setColorSchemeResources(
+                R.color.colorAccent,
+                R.color.colorPrimaryDark,
+                R.color.colorPrimary);
 
         applySystemThemeUI();
         setupGoogleOneTap();
